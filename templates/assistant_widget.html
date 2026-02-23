@@ -1,0 +1,47 @@
+{%- set static_css = url_for('static', filename='css/assistant_widget.css') -%}
+{%- set static_js = url_for('static', filename='js/assistant_widget.js') -%}
+
+<link rel="stylesheet" href="{{ static_css }}">
+
+<div id="ai-help-widget" aria-hidden="true">
+  <button id="ai-help-fab" class="ai-fab" aria-label="Open Help" title="Help">
+    <span class="fab-glow"></span>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-2h2v2zm1.07-7.75l-.9.92A2 2 0 0012 12h-1v-1h1a1 1 0 01.78-.38c.27 0 .53.11.72.3l.63-.64A2.5 2.5 0 0012.07 6 2.5 2.5 0 009.5 8.5H8A4 4 0 0112.07 9.25c.8 0 1.54-.3 2.07-.75z"/></svg>
+  </button>
+
+  <aside id="ai-help-panel" class="ai-panel" role="dialog" aria-label="AI Assistant" aria-hidden="true">
+    <header class="panel-head">
+      <div class="brand">AI Assist <small>— Virtual Investment Guide</small></div>
+      <button id="ai-close" class="close" aria-label="Close">✕</button>
+    </header>
+    <main class="panel-body" id="ai-body" tabindex="0">
+      <div class="ai-scan" id="ai-scan" aria-hidden="true">
+        <div class="scan-ring"></div>
+        <div class="scan-dot"></div>
+      </div>
+      <div id="ai-messages" class="ai-messages" aria-live="polite"></div>
+    </main>
+    <footer class="panel-foot">
+      <div class="quick-actions">
+        <button data-action="view-plans" class="qa">📊 View Investment Plans</button>
+        <button data-action="stories" class="qa">⭐ Success Stories</button>
+        <button data-action="how" class="qa">ℹ️ How It Works</button>
+        <button data-action="contact" class="qa">📞 Contact Admin</button>
+        <button data-action="whatsapp" class="qa">💬 WhatsApp Support</button>
+      </div>
+      <div class="chat-input">
+        <form id="ai-chat-form" onsubmit="return false;" style="display:flex;gap:8px;align-items:center">
+          <input id="ai-input" type="text" placeholder="Ask me anything about investing..." style="flex:1;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit">
+          <button id="ai-send" class="qa" type="button">Send</button>
+        </form>
+      </div>
+      <div class="foot-note"></div>
+    </footer>
+  </aside>
+</div>
+
+<script defer src="{{ static_js }}"></script>
+<script>
+  // expose current user id to assistant JS for session-aware logging (safe when undefined)
+  window.__USER_ID = {{ session.get('user_id')|tojson }};
+</script>
