@@ -1,8 +1,9 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
 
 # Virtual env
 venv/
@@ -11,16 +12,27 @@ env/
 
 # IDE / OS
 .vscode/
+.idea/
 .DS_Store
+Thumbs.db
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+htmlcov/
 
 # Local DBs and uploads
 app.db
 *.sqlite3
 static/uploads/
 static/exports/
+uploads/
 
 # Secrets
 .env
+instance/
+*.pem
 
 # Exports and logs
 *.log
+exports/
