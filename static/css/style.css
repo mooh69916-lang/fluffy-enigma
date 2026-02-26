@@ -1,10 +1,10 @@
 :root{
-	--bg:#ffffff;
-	--muted:#f6f7f9;
-	--accent:#16233b; /* deep charcoal/blue */
-	--accent-2:#0f766e; /* emerald accent */
-	--success:#1f7a3a; /* green for profits */
-	--text:#0b1220;
+	--bg:#f6f8fb;
+	--muted:#f6f8fb;
+	--accent:#0a6361; /* teal primary */
+	--accent-2:#ff6b6b; /* coral secondary */
+	--success:#16a34a; /* green for profits */
+	--text:#0b1a24; /* dark slate text */
 	--card:#ffffff;
 	--max-width:1200px;
 }
@@ -58,7 +58,7 @@ body{
 .hero{padding:36px 0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.02));}
 .hero .hero-inner{display:grid;grid-template-columns:1fr;gap:20px;align-items:center}
 .hero h1{font-size:clamp(20px,6vw,32px);margin:0;color:var(--accent)}
-.hero p{color:#475569;margin:0;max-width:60ch}
+.hero p{color:#425057;margin:0;max-width:60ch}
 .cta{margin-top:12px}
 .btn{display:inline-block;padding:10px 16px;border-radius:8px;background:var(--accent);color:#fff;text-decoration:none}
 
@@ -113,21 +113,21 @@ body{
 .funding-row{display:flex;flex-direction:column;gap:6px}
 .funding-label{font-size:13px;color:#6b7280}
 .funding-bar{background:#eef2f6;border-radius:8px;height:10px;overflow:hidden}
-.funding-fill{height:100%;background:linear-gradient(90deg,var(--accent-2),#9ae6b4);border-radius:8px}
+.funding-fill{height:100%;background:linear-gradient(90deg,var(--accent-2),#ffd7d7);border-radius:8px}
 
 .plan-action{margin-top:6px}
-.invest-btn{width:100%;padding:12px;border-radius:12px;background:linear-gradient(180deg,var(--accent),#13324a);color:#fff;font-weight:700;box-shadow:0 6px 14px rgba(19,50,74,0.12);border:none}
+.invest-btn{width:100%;padding:12px;border-radius:12px;background:linear-gradient(180deg,var(--accent),rgba(6,54,52,0.9));color:#fff;font-weight:700;box-shadow:0 6px 20px rgba(10,60,57,0.12);border:none}
 .invest-btn:hover{transform:translateY(-2px);transition:transform 150ms ease}
 
 /* Announcement banner (full-width prominent) */
-.ann-banner{width:100%;background:linear-gradient(90deg,#0f1724,#0b1226);color:#fff;padding:12px 0;box-shadow:0 6px 24px rgba(2,6,23,0.4);border-bottom:4px solid rgba(255,255,255,0.03);margin-bottom:12px}
+.ann-banner{width:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:12px 0;box-shadow:0 6px 24px rgba(10,24,24,0.06);border-bottom:4px solid rgba(255,255,255,0.03);margin-bottom:12px}
 .ann-banner .container{display:flex;align-items:center}
 .ann-banner .btn{background:rgba(255,255,255,0.12);color:#fff;border:none;padding:8px 12px;border-radius:8px}
 
 /* WhatsApp icon button on plan card */
-.whatsapp-btn{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:999px;background:linear-gradient(180deg,#25D366,#128C7E);display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 8px 20px rgba(37,211,102,0.18);border:2px solid rgba(255,255,255,0.12);transition:transform 160ms ease,box-shadow 160ms ease}
+.whatsapp-btn{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:999px;background:linear-gradient(180deg,var(--accent),var(--accent-2));display:inline-flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;box-shadow:0 8px 20px rgba(10,90,86,0.12);border:2px solid rgba(255,255,255,0.06);transition:transform 160ms ease,box-shadow 160ms ease}
 .whatsapp-btn svg{width:20px;height:20px;display:block;color:#fff}
-.whatsapp-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 34px rgba(37,211,102,0.22)}
+.whatsapp-btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 14px 34px rgba(255,107,107,0.18)}
 .whatsapp-btn:active{transform:translateY(0) scale(0.98)}
 
 @media(max-width:639px){

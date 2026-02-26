@@ -182,7 +182,7 @@ def index():
 def register():
     if request.method == 'POST':
         username = request.form['username']
-        email = request.form['email']
+        phone = request.form.get('phone')
         password = request.form['password']
         country = request.form.get('country')
         currency_code = request.form.get('currency_code')
@@ -191,6 +191,18 @@ def register():
         pw_hash = generate_password_hash(password)
         conn = get_db()
         cur = conn.cursor()
+        # Ensure `phone` column exists for older DBs
+        try:
+            cur.execute("PRAGMA table_info(users)")
+            cols = [r[1] for r in cur.fetchall()]
+            if 'phone' not in cols:
+                try:
+                    cur.execute("ALTER TABLE users ADD COLUMN phone TEXT")
+                    conn.commit()
+                except Exception:
+                    pass
+        except Exception:
+            pass
         # determine whether this should be the first admin user
         try:
             cur.execute('SELECT COUNT(*) as cnt FROM users')
@@ -199,8 +211,8 @@ def register():
             cnt = 0
         is_admin_flag = 1 if cnt == 0 else 0
         try:
-            cur.execute('INSERT INTO users (username, email, password_hash, balance, policy_accepted, is_admin, country, currency_code, currency_symbol, currency_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                        (username, email, pw_hash, 0.0, 0, is_admin_flag, country, currency_code, currency_symbol, currency_name, datetime.utcnow()))
+            cur.execute('INSERT INTO users (username, phone, password_hash, balance, policy_accepted, is_admin, country, currency_code, currency_symbol, currency_name, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                        (username, phone, pw_hash, 0.0, 0, is_admin_flag, country, currency_code, currency_symbol, currency_name, datetime.utcnow()))
             conn.commit()
             flash('Registered. Please login.', 'success')
             return redirect(url_for('login'))
@@ -208,13 +220,13 @@ def register():
             # older DB without currency columns: fallback to insert without them
             if 'no column named country' in str(oe) or 'has no column' in str(oe):
                 try:
-                    cur.execute('INSERT INTO users (username, email, password_hash, balance, policy_accepted, is_admin, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-                                (username, email, pw_hash, 0.0, 0, is_admin_flag, datetime.utcnow()))
+                    cur.execute('INSERT INTO users (username, phone, password_hash, balance, policy_accepted, is_admin, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                                (username, phone, pw_hash, 0.0, 0, is_admin_flag, datetime.utcnow()))
                     conn.commit()
                     flash('Registered (legacy DB). Please login.', 'success')
                     return redirect(url_for('login'))
                 except sqlite3.IntegrityError:
-                    flash('Username or email already exists', 'danger')
+                    flash('Username or phone already exists', 'danger')
                 except Exception:
                     flash('Registration failed', 'danger')
                 finally:
@@ -223,7 +235,7 @@ def register():
                 conn.close()
                 raise
         except sqlite3.IntegrityError:
-            flash('Username or email already exists', 'danger')
+            flash('Username or phone already exists', 'danger')
         finally:
             try:
                 conn.close()
